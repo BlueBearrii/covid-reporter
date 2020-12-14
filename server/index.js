@@ -4,10 +4,10 @@ const bodyParser = require("body-parser");
 
 // Initialize Firebase
 const firebase = require("firebase");
-const firebaseConfig = require('./config/firebaseConfig')
-// console.log(firebaseConfig)
-firebase.initializeApp(firebaseConfig);
+const firebaseConfig = require("./config/firebaseConfig");
+firebaseConfig.setup();
 
+// Body-Parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -30,6 +30,7 @@ app.post("/api/auth/email", (req, res) => {
       return res.json({ errors: `${err}` });
     });
 });
+
 const PORT = 3000;
 
 app.listen(PORT, (req, res) => {
