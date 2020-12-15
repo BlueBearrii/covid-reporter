@@ -3,8 +3,16 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 void main() => runApp(MyApp());
 
-void printLogFunction() {
-  print("Function is work");
+void _onClickLogin() {
+  print("is Login");
+}
+
+void _onClickRegister() {
+  print("Route to register()");
+}
+
+void _onClickForgotpassword() {
+  print("Route to forgotten()");
 }
 
 class MyApp extends StatelessWidget {
@@ -12,6 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        //resizeToAvoidBottomInset: false,
         body: LoginScreen(),
       ),
     );
@@ -20,19 +30,24 @@ class MyApp extends StatelessWidget {
 
 class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  String email;
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: double.infinity,
       child: Column(
         children: [
           Expanded(
-            flex: 5,
+            flex: 2,
             child: Center(
               child: Text("Space for Icon"),
             ),
           ),
           Expanded(
-              flex: 5,
+              flex: 3,
               child: Container(
                   child: Center(
                       child: Padding(
@@ -42,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                     // =================================================== Form layout ===================================================
                     Form(
                         key: _formKey,
-                        child: Column(children: <Widget>[
+                        child: Column(children: [
                           TextFormField(
                             decoration:
                                 InputDecoration(hintText: "Email address"),
@@ -50,7 +65,6 @@ class LoginScreen extends StatelessWidget {
                               if (value.isEmpty) {
                                 return 'Please enter some text';
                               }
-                              return null;
                             },
                           ),
                           TextFormField(
@@ -72,40 +86,43 @@ class LoginScreen extends StatelessWidget {
                                   child: Text("LOGIN"),
                                   padding: EdgeInsets.symmetric(vertical: 15.0),
                                   onPressed: () {
-                                    if (_formKey.currentState.validate()) {
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                              content:
-                                                  Text('Waiting to login')));
-                                    } else {
-                                      printLogFunction();
-                                    }
+                                    _onClickLogin();
                                   },
                                 ),
                               ))
                         ])),
 
                     Container(
-                      margin: EdgeInsets.only(bottom: 30.0),
+                      margin: EdgeInsets.only(bottom: 50.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Container(
                                 child: Center(
-                                    child: Text(
-                              'Register account',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
+                                    child: GestureDetector(
+                              onTap: () {
+                                _onClickRegister();
+                              },
+                              child: Text(
+                                'Register account',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                ),
                               ),
                             ))),
                           ),
                           Expanded(
                             child: Container(
                                 child: Center(
-                                    child: Text(
-                              'Forgot password',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
+                                    child: GestureDetector(
+                              onTap: () {
+                                _onClickForgotpassword();
+                              },
+                              child: Text(
+                                'Forgot password',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                ),
                               ),
                             ))),
                           ),
