@@ -19,7 +19,24 @@ firebase.initializeApp({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post("/api/auth/email", (req, res) => {
+app.post("/api/auth", (req, res) => {
+  let user = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(user.email, user.password)
+    .then((user) => {
+      return res.json({ message: user });
+    })
+    .catch((err) => {
+      return res.json({ errors: err });
+    });
+});
+
+app.post("/api/register", (req, res) => {
   let db = firebase.firestore();
   let user = {
     firstName: req.body.firstName,
