@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Center(
-              child: Text("Test Flex 1"),
+              child: Text("Space for Icon"),
             ),
           ),
           Expanded(
@@ -39,6 +39,7 @@ class LoginScreen extends StatelessWidget {
                 padding: EdgeInsets.all(25.0),
                 child: Column(
                   children: [
+                    // =================================================== Form layout ===================================================
                     Form(
                         key: _formKey,
                         child: Column(children: <Widget>[
@@ -64,28 +65,63 @@ class LoginScreen extends StatelessWidget {
                           SizedBox(
                               width: double.infinity,
                               child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 20.0),
-                                child: ElevatedButton(
+                                margin: EdgeInsets.only(top: 30.0, bottom: 15),
+                                child: RaisedButton(
+                                  color: Colors.red[400],
+                                  textColor: Colors.white,
+                                  child: Text("LOGIN"),
+                                  padding: EdgeInsets.symmetric(vertical: 15.0),
                                   onPressed: () {
                                     if (_formKey.currentState.validate()) {
                                       Scaffold.of(context).showSnackBar(
                                           SnackBar(
                                               content:
-                                                  Text('Processing Data')));
+                                                  Text('Waiting to login')));
                                     } else {
                                       printLogFunction();
                                     }
                                   },
-                                  child: Text("LOGIN"),
                                 ),
                               ))
                         ])),
+
+                    Container(
+                      margin: EdgeInsets.only(bottom: 30.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                                child: Center(
+                                    child: Text(
+                              'Register account',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                            ))),
+                          ),
+                          Expanded(
+                            child: Container(
+                                child: Center(
+                                    child: Text(
+                              'Forgot password',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                            ))),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // =================================================== Google button ===================================================
                     SizedBox(
                         width: double.infinity,
                         child: SignInButton(
                           Buttons.Google,
                           onPressed: () {},
                         )),
+
+                    // =================================================== Facebook button ===================================================
                     SizedBox(
                         width: double.infinity,
                         child: SignInButton(
