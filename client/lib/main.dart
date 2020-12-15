@@ -12,9 +12,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Covid'),
-        ),
         body: LoginScreen(),
       ),
     );
@@ -23,7 +20,6 @@ class MyApp extends StatelessWidget {
 
 class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,9 +42,9 @@ class LoginScreen extends StatelessWidget {
                     Form(
                         key: _formKey,
                         child: Column(children: <Widget>[
-                          // Add TextFormFields and ElevatedButton here.
                           TextFormField(
-                            // The validator receives the text that the user has entered.
+                            decoration:
+                                InputDecoration(hintText: "Email address"),
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter some text';
@@ -57,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                             },
                           ),
                           TextFormField(
-                            // The validator receives the text that the user has entered.
+                            decoration: InputDecoration(hintText: "Password"),
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter some text';
@@ -66,21 +62,23 @@ class LoginScreen extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Validate returns true if the form is valid, otherwise false.
-                                if (_formKey.currentState.validate()) {
-                                  // If the form is valid, display a snackbar. In the real world,
-                                  // you'd often call a server or save the information in a database.
-
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text('Processing Data')));
-                                }
-                              },
-                              child: Text("LOGIN"),
-                            ),
-                          )
+                              width: double.infinity,
+                              child: Container(
+                                margin: EdgeInsets.symmetric(vertical: 20.0),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState.validate()) {
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content:
+                                                  Text('Processing Data')));
+                                    } else {
+                                      printLogFunction();
+                                    }
+                                  },
+                                  child: Text("LOGIN"),
+                                ),
+                              ))
                         ])),
                     SizedBox(
                         width: double.infinity,
