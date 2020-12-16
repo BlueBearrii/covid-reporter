@@ -96,12 +96,15 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                       //color: Colors.black12,
                                       child: Column(
                                         children: [
+                                          // ++++++++++++++++++++++++++++++++++++ LABEL ++++++++++++++++++++++++++++++++++++
                                           Expanded(
                                               flex: 1,
                                               child: Container(
                                                 width: double.infinity,
                                                 child: Text("Global Laabel"),
                                               )),
+
+                                          // ################################# BOX #################################
                                           Expanded(
                                             flex: 3,
                                             child: Container(
@@ -179,12 +182,15 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                       //color: Colors.black12,
                                       child: Column(
                                         children: [
+                                          // ++++++++++++++++++++++++++++++++++++ LABEL ++++++++++++++++++++++++++++++++++++
                                           Expanded(
                                               flex: 1,
                                               child: Container(
                                                 width: double.infinity,
                                                 child: Text("Thailand Label"),
                                               )),
+
+                                          // ################################# BOX #################################
                                           Expanded(
                                             flex: 3,
                                             child: Container(
