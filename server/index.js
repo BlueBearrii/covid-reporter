@@ -29,10 +29,10 @@ app.post("/api/auth", (req, res) => {
     .auth()
     .signInWithEmailAndPassword(user.email, user.password)
     .then((user) => {
-      return res.json({ message: user });
+      return res.json({ message: user, status: "succes" });
     })
     .catch((err) => {
-      return res.json({ errors: err });
+      return res.json({ message: err, status: "unsucces" });
     });
 });
 
