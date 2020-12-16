@@ -1,8 +1,9 @@
-import 'package:client/components/score.dart';
-import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+
+import 'package:client/components/score.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -20,13 +21,24 @@ class Login extends StatelessWidget {
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(context) {
-    void _onClickLogin() async {
-      // var url = 'http://localhost:3000/api/auth';
-      // var response = await http.post(url,
-      //     body: {"email": "admin01@mail.com", "password": "admin01"});
-      // var jsonResponse = convert.jsonDecode(response.body);
-      // print('Response body: $jsonResponse');
+    final _formKey = GlobalKey<FormState>();
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
+    String email;
+    String password;
+    void _onClickLogin() async {
+      var url = 'http://localhost:3000/api/auth';
+      await http.post(url, body: {"email": email, "password": password}).then(
+          (value) {
+        var getStatus = convert.jsonDecode(value.body);
+        //print(getStatus['status']);
+        if (getStatus['status'] == "succes")
+          return Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Score()));
+      }).catchError((onError) => print("Errors : $onError"));
+      //var jsonResponse = convert.jsonDecode(response.body);
+      //print('Response body: $jsonResponse');
       //Navigator.push(context, MaterialPageRoute(builder: (context) => Score()));
     }
 
@@ -37,8 +49,6 @@ class LoginScreen extends StatelessWidget {
     void _onClickForgotpassword() {
       print("Route to forgotten()");
     }
-
-    final _formKey = GlobalKey<FormState>();
 
     return Container(
       alignment: Alignment.center,
@@ -57,7 +67,8 @@ class LoginScreen extends StatelessWidget {
               child: Container(
                   child: Center(
                       child: Padding(
-                padding: EdgeInsets.all(25.0),
+                padding:
+                    EdgeInsets.symmetric(horizontal: (screenWidth * 5) / 100),
                 child: Column(
                   children: [
                     // =================================================== Form layout ===================================================
@@ -65,16 +76,18 @@ class LoginScreen extends StatelessWidget {
                         key: _formKey,
                         child: Column(children: [
                           TextFormField(
+                            onSaved: (value) => {email = value},
                             decoration:
                                 InputDecoration(hintText: "Email address"),
-                            // ignore: missing_return
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter some text';
                               }
+                              return null;
                             },
                           ),
                           TextFormField(
+                            onSaved: (value) => {password = value},
                             decoration: InputDecoration(hintText: "Password"),
                             validator: (value) {
                               if (value.isEmpty) {
@@ -86,21 +99,27 @@ class LoginScreen extends StatelessWidget {
                           SizedBox(
                               width: double.infinity,
                               child: Container(
-                                margin: EdgeInsets.only(top: 30.0, bottom: 15),
+                                margin: EdgeInsets.only(
+                                    top: (screenHeight * 3) / 100,
+                                    bottom: (screenHeight * 4) / 100),
                                 child: RaisedButton(
                                   color: Colors.red[400],
                                   textColor: Colors.white,
                                   child: Text("LOGIN"),
-                                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: (screenWidth * 2) / 100),
                                   onPressed: () {
-                                    _onClickLogin();
+                                    _formKey.currentState.save();
+                                    if (_formKey.currentState.validate()) {
+                                      _onClickLogin();
+                                    }
                                   },
                                 ),
                               ))
                         ])),
 
                     Container(
-                      margin: EdgeInsets.only(bottom: 50.0),
+                      margin: EdgeInsets.only(bottom: (screenHeight * 5) / 100),
                       child: Row(
                         children: [
                           Expanded(
