@@ -78,7 +78,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Container(),
+                          child: Container(
+                            padding: EdgeInsets.all(50),
+                            width: double.infinity,
+                            height: double.infinity,
+                            //color: Colors.amber,
+                            child: Image.asset('assets/scoreImage/location.png',
+                                fit: BoxFit.contain),
+                          ),
                         ),
                         Expanded(
                           flex: 3,
@@ -91,84 +98,99 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                 Expanded(
                                   flex: 4,
                                   child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Container(
-                                      //color: Colors.black12,
-                                      child: Column(
-                                        children: [
-                                          // ++++++++++++++++++++++++++++++++++++ LABEL ++++++++++++++++++++++++++++++++++++
-                                          Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                width: double.infinity,
-                                                child: Text("Global Laabel"),
-                                              )),
+                                    padding: EdgeInsets.all(10.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print("Wow");
+                                      },
+                                      child: Container(
+                                        //color: Colors.black12,
+                                        child: Column(
+                                          children: [
+                                            // ++++++++++++++++++++++++++++++++++++ LABEL ++++++++++++++++++++++++++++++++++++
+                                            Expanded(
+                                                flex: 1,
+                                                child: Container(
+                                                  width: double.infinity,
+                                                  child: Text(
+                                                    "World Covid statistics",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 28,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                )),
 
-                                          // ################################# BOX #################################
-                                          Expanded(
-                                            flex: 3,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.5),
-                                                    spreadRadius: 5,
-                                                    blurRadius: 7,
-                                                    offset: Offset(0, 3),
-                                                  )
-                                                ],
-                                                color: Colors.white,
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: Container(
-                                                      //color: Colors.red,
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(5.0),
-                                                        child: Container(
-                                                          color: Colors
-                                                              .greenAccent,
-                                                          child: Center(
-                                                            child: Text(snapshot
-                                                                .data[3]
-                                                                .toString()),
+                                            // ################################# BOX #################################
+                                            Expanded(
+                                              flex: 4,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.5),
+                                                      spreadRadius: 5,
+                                                      blurRadius: 7,
+                                                      offset: Offset(0, 3),
+                                                    )
+                                                  ],
+                                                  color: Colors.white,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: Container(
+                                                        //color: Colors.red,
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  5.0),
+                                                          child: Container(
+                                                            color: Colors
+                                                                .greenAccent,
+                                                            child: Center(
+                                                              child: Text(snapshot
+                                                                  .data[3]
+                                                                  .toString()),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: Container(
-                                                      //color: Colors.red,
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(5.0),
-                                                        child: Container(
-                                                          color: Colors
-                                                              .greenAccent,
-                                                          child: Center(
-                                                            child: Text(snapshot
-                                                                .data[4]
-                                                                .toString()),
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: Container(
+                                                        //color: Colors.red,
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  5.0),
+                                                          child: Container(
+                                                            color: Colors
+                                                                .greenAccent,
+                                                            child: Center(
+                                                              child: Text(snapshot
+                                                                  .data[4]
+                                                                  .toString()),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -187,7 +209,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                               flex: 1,
                                               child: Container(
                                                 width: double.infinity,
-                                                child: Text("Thailand Label"),
+                                                child: Text(
+                                                  "Thailand",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 28,
+                                                      color: Colors.grey[800]),
+                                                ),
                                               )),
 
                                           // ################################# BOX #################################
