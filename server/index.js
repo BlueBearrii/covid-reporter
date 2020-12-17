@@ -72,6 +72,10 @@ app.post("/api/register", (req, res) => {
     });
 });
 
+app.post("/api/send-email", (req, res) => {
+  return res.json({ message: "Your email was send" });
+});
+
 const PORT = 3000;
 
 app.listen(PORT, (req, res) => {
