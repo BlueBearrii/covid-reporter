@@ -1,9 +1,18 @@
+import 'package:client/components/app/mainScreen.dart';
+import 'package:client/components/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
-import 'package:client/components/app/score.dart';
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
 
 class Login extends StatelessWidget {
   @override
@@ -18,24 +27,77 @@ class Login extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String email;
+
+  String password;
+
   @override
   Widget build(context) {
     final _formKey = GlobalKey<FormState>();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    String email;
-    String password;
+    Future<void> _handleSignIn() async {
+      try {
+        await _googleSignIn.signIn().then((value) => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainScreen())));
+      } catch (error) {
+        print(error);
+      }
+    }
+
+    void _showMessage(String message) {
+      setState(() {});
+    }
+
+    Future<Null> _login() async {
+      final FacebookLoginResult result =
+          await LoginScreen.facebookSignIn.logIn(['email']);
+
+      switch (result.status) {
+        case FacebookLoginStatus.loggedIn:
+          final FacebookAccessToken accessToken = result.accessToken;
+          _showMessage('''
+         Logged in!
+         
+         Token: ${accessToken.token}
+         User id: ${accessToken.userId}
+         Expires: ${accessToken.expires}
+         Permissions: ${accessToken.permissions}
+         Declined permissions: ${accessToken.declinedPermissions}
+         ''');
+
+          return Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
+          break;
+        case FacebookLoginStatus.cancelledByUser:
+          _showMessage('Login cancelled by the user.');
+          break;
+        case FacebookLoginStatus.error:
+          _showMessage('Something went wrong with the login process.\n'
+              'Here\'s the error Facebook gave us: ${result.errorMessage}');
+          break;
+      }
+    }
+
     void _onClickLogin() async {
-      var url = 'http://localhost:3000/api/auth';
+      var url =
+          'https://us-central1-covid-reporter-ae343.cloudfunctions.net/api/auth';
       await http.post(url, body: {"email": email, "password": password}).then(
           (value) {
         var getStatus = convert.jsonDecode(value.body);
         //print(getStatus['status']);
         if (getStatus['status'] == "succes")
           return Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Score()));
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
       }).catchError((onError) => print("Errors : $onError"));
       //var jsonResponse = convert.jsonDecode(response.body);
       //print('Response body: $jsonResponse');
@@ -43,7 +105,8 @@ class LoginScreen extends StatelessWidget {
     }
 
     void _onClickRegister() {
-      print("Route to register()");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Register()));
     }
 
     void _onClickForgotpassword() {
@@ -76,7 +139,7 @@ class LoginScreen extends StatelessWidget {
                         key: _formKey,
                         child: Column(children: [
                           TextFormField(
-                            onSaved: (value) => {email = value},
+                            onChanged: (value) => {email = value},
                             decoration:
                                 InputDecoration(hintText: "Email address"),
                             validator: (value) {
@@ -87,7 +150,8 @@ class LoginScreen extends StatelessWidget {
                             },
                           ),
                           TextFormField(
-                            onSaved: (value) => {password = value},
+                            obscureText: true,
+                            onChanged: (value) => {password = value},
                             decoration: InputDecoration(hintText: "Password"),
                             validator: (value) {
                               if (value.isEmpty) {
@@ -109,7 +173,6 @@ class LoginScreen extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: (screenWidth * 2) / 100),
                                   onPressed: () {
-                                    _formKey.currentState.save();
                                     if (_formKey.currentState.validate()) {
                                       _onClickLogin();
                                     }
@@ -161,7 +224,9 @@ class LoginScreen extends StatelessWidget {
                         width: double.infinity,
                         child: SignInButton(
                           Buttons.Google,
-                          onPressed: () {},
+                          onPressed: () {
+                            _handleSignIn();
+                          },
                         )),
 
                     // =================================================== Facebook button ===================================================
@@ -169,7 +234,9 @@ class LoginScreen extends StatelessWidget {
                         width: double.infinity,
                         child: SignInButton(
                           Buttons.Facebook,
-                          onPressed: () {},
+                          onPressed: () {
+                            _login();
+                          },
                         )),
                   ],
                 ),
