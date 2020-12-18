@@ -47,6 +47,8 @@ class _WorldScoreState extends State<WorldScore> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         // backgroundColor: Colors.white,
         body: FutureBuilder(
@@ -54,7 +56,10 @@ class _WorldScoreState extends State<WorldScore> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done)
           return Container(
-            padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding: EdgeInsets.only(
+                top: (screenWidth * 2) / 100,
+                left: (screenWidth * 2) / 100,
+                right: (screenHeight * 2) / 100),
             child: Column(
               children: [
                 Expanded(
@@ -192,6 +197,9 @@ class CustomCardScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -205,7 +213,7 @@ class CustomCardScore extends StatelessWidget {
         ],
         color: Colors.white,
       ),
-      height: 112,
+      height: (screenHeight * 12) / 100,
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
