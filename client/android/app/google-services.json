@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "230415734880",
+    "project_id": "covid-reporter-ae343",
+    "storage_bucket": "covid-reporter-ae343.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230415734880:android:7d063643e51e8a1b6f8b05",
+        "android_client_info": {
+          "package_name": "com.example.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230415734880-6j43j4vsg61qje76ckeadn4cjd99jh93.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBULHWQRGuKf1hUvUV2ybBlH1L8YE-wQ34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230415734880-4fpg38v1or4gn4en5s2k4vhvue5r23gq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "230415734880-4jfo4f3ghfms9ppasshi2bursqli98kj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "covid-reporter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
