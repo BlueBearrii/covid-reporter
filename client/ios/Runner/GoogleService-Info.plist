@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>230415734880-clllb9l98ndjqvv6k3jt5sbqv6ano0v3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.230415734880-clllb9l98ndjqvv6k3jt5sbqv6ano0v3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>230415734880-6qrc1oeq62i6m91nac349fldviuvvcf0.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAe6IXMOGee1-6Zw_kvRFs3r4N11AaMpLg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>230415734880</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.client</string>
+	<key>PROJECT_ID</key>
+	<string>covid-reporter-ae343</string>
+	<key>STORAGE_BUCKET</key>
+	<string>covid-reporter-ae343.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:230415734880:ios:a0dcd9c97011eb986f8b05</string>
+</dict>
+</plist>

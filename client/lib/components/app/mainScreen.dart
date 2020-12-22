@@ -1,7 +1,18 @@
 import 'package:client/components/app/contactScreen.dart';
+import 'package:client/components/app/newWorldScreen.dart';
 import 'package:client/components/app/worldCovid.dart';
 import 'package:client/components/login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key key}) : super(key: key);
@@ -17,13 +28,13 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: AppBar(
           backgroundColor: Color(0xFF3B3D58),
           title: currentIndex == 0 ? Text("Covid score") : Text("Contact us"),
           actions: [currentIndex == 1 ? LogoutIcon() : Container()],
         ),
-        body: currentIndex == 0 ? WorldScore() : ContactScreen(),
+        body: currentIndex == 0 ? NewWorld() : ContactScreen(),
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
               canvasColor: Color(0xFF3B3D58),
@@ -52,12 +63,31 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class LogoutIcon extends StatelessWidget {
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
   const LogoutIcon({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        if (prefs.getString("loginType") == "Google") {
+          _googleSignIn.disconnect();
+
+          await prefs.setString("isAuthentication", "False");
+          await prefs.setString("name", null);
+          await prefs.setString("email", null);
+          await prefs.setString("loginType", null);
+        }
+        if (prefs.getString("loginType") == "Facebook") {
+          await facebookSignIn.logOut();
+
+          await prefs.setString("isAuthentication", "False");
+          await prefs.setString("name", null);
+          await prefs.setString("email", null);
+          await prefs.setString("loginType", null);
+        }
+
         return Navigator.pushAndRemoveUntil(
             context,
             PageRouteBuilder(pageBuilder: (BuildContext context,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class WorldScore extends StatefulWidget {
   const WorldScore({Key key}) : super(key: key);
 
@@ -18,14 +20,19 @@ class _WorldScoreState extends State<WorldScore> {
   int _globalDeaths = 0;
 
   Future<List> callAPI() async {
-    var apiThai = 'https://covid19.th-stat.com/api/open/today';
+    var apiThai = 'https://corona.lmao.ninja/v2/countries/thailand';
     var apiGlobal = 'https://covid19.mathdro.id/api';
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     await http.get(apiThai).then((value) {
       var getState = convert.jsonDecode(value.body);
-      _confirmed = getState["Confirmed"];
-      _deaths = getState["Deaths"];
-      _hospitalized = getState["Hospitalized"];
+      _confirmed = getState["cases"];
+      _deaths = getState["deaths"];
+
+      //_hospitalized = getState["Hospitalized"];
+    }).catchError((onError) {
+      _confirmed = 0;
+      _deaths = 0;
+      _hospitalized = 0;
     });
 
     await http.get(apiGlobal).then((value) {
@@ -105,7 +112,7 @@ class _WorldScoreState extends State<WorldScore> {
                       Expanded(
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 3,
+                          itemCount: 2,
                           itemBuilder: (context, index) {
                             index = index + 2;
                             return CustomCardScore(
@@ -213,7 +220,7 @@ class CustomCardScore extends StatelessWidget {
         ],
         color: Colors.white,
       ),
-      height: (screenHeight * 12) / 100,
+      height: (screenHeight * 10) / 100,
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
